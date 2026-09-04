@@ -1,0 +1,19 @@
+name: Build Vynnify Aim Tweaks
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install PyInstaller
+        run: python -m pip install pyinstaller pillow
+      - name: Build EXE
+        run: python -m PyInstaller --noconfirm --clean --onefile --windowed --name "Vynnify Aim Tweaks" --icon vynnify.ico app.py
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: Vynnify-Aim-Tweaks-Windows
+          path: dist/Vynnify Aim Tweaks.exe
